@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AGAM SPA - Sanctuary of Relaxation</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
+    <title>AGAM SPA - Buku Menu & Katalog Eksklusif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #4a3b32;
-            --accent: #c5a880;
-            --bg-color: #f7f4ef;
-            --paper: #ffffff;
-            --text-main: #2c221e;
-            --shadow: 0 20px 40px rgba(74, 59, 50, 0.15);
+            --book-bg: #fcf8f2;
+            --leather-dark: #2b1d17;
+            --leather-spine: #3d2820;
+            --primary-gold: #c5a059;
+            --text-main: #3a2e2b;
+            --text-muted: #7d6b63;
         }
 
         * {
@@ -27,364 +25,390 @@
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, #2b1d17 0%, #1a110e 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 20px;
-            overflow-x: hidden;
+            padding: 15px;
         }
 
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
-        header h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.5rem;
-            color: var(--primary);
-            letter-spacing: 2px;
-        }
-
-        header p {
-            font-size: 0.95rem;
-            color: #7c6f66;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-top: 5px;
-        }
-
-        /* Book Container */
-        .book-container {
+        .container {
             width: 100%;
-            max-width: 900px;
-            height: 550px;
-            background: var(--paper);
-            border-radius: 8px;
-            box-shadow: var(--shadow);
+            max-width: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Cover Kulit Buku Luar */
+        .book-cover-frame {
+            background-color: var(--leather-dark);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6), inset 0 2px 5px rgba(255,255,255,0.1);
+            border: 2px solid var(--primary-gold);
+            width: 100%;
+        }
+
+        /* Struktur Buku Terbuka (Dua Halaman) */
+        .book {
+            width: 100%;
+            height: 560px;
+            background-color: var(--book-bg);
             display: flex;
             position: relative;
+            border-radius: 4px;
             overflow: hidden;
-            border: 1px solid #e6ded5;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.05);
         }
 
-        /* Book Spine Effect in Center */
-        .book-container::before {
+        /* Efek Garis Tengah / Jilidan Buku */
+        .book::before {
             content: '';
             position: absolute;
             left: 50%;
             top: 0;
             bottom: 0;
-            width: 40px;
+            width: 30px;
             transform: translateX(-50%);
-            background: linear-gradient(90deg, rgba(0,0,0,0.03), rgba(0,0,0,0.08), rgba(0,0,0,0.03));
+            background: linear-gradient(90deg, rgba(0,0,0,0.02), rgba(0,0,0,0.08), rgba(0,0,0,0.02));
             z-index: 10;
             pointer-events: none;
         }
 
-        /* Page Layout */
+        /* Halaman Buku */
         .page {
             width: 50%;
             height: 100%;
-            padding: 40px;
+            padding: 35px 40px;
             display: none;
             flex-direction: column;
             justify-content: space-between;
             overflow-y: auto;
-            animation: fadeIn 0.6s ease-in-out;
+            position: relative;
         }
 
         .page.active {
             display: flex;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.98); }
+            from { opacity: 0; transform: scale(0.99); }
             to { opacity: 1; transform: scale(1); }
         }
 
         .page-left {
-            border-right: 1px solid #eee;
-            background-color: #fdfbf7;
+            border-right: 1px solid #e6dcd0;
+            background: linear-gradient(to right, #f7f2eb, #fcf8f2);
         }
 
         .page-right {
-            background-color: #ffffff;
+            background: linear-gradient(to left, #f7f2eb, #fcf8f2);
         }
 
-        /* Typography inside book */
-        h2 {
+        /* Tipografi */
+        h1, h2 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--accent);
+            color: var(--leather-dark);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-gold);
             padding-bottom: 8px;
+            margin-bottom: 15px;
         }
 
-        p, li {
-            font-size: 0.95rem;
+        p {
+            font-size: 0.9rem;
             line-height: 1.6;
-            color: #554842;
-            margin-bottom: 12px;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        ul li {
-            position: relative;
-            padding-left: 20px;
+            color: var(--text-muted);
             margin-bottom: 10px;
         }
 
-        ul li::before {
-            content: '•';
-            color: var(--accent);
-            font-weight: bold;
-            position: absolute;
-            left: 0;
+        /* Layout Foto & Grid */
+        .photo-frame {
+            width: 100%;
+            height: 210px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 2px solid var(--primary-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            background: #000;
         }
 
-        /* Gallery Grid inside Book */
-        .gallery-grid {
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .photo-frame img:hover {
+            transform: scale(1.05);
+        }
+
+        .grid-2 {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .grid-2 .photo-frame {
+            height: 130px;
+            margin-bottom: 0;
+        }
+
+        /* Menu Harga */
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px dashed #dcd0c0;
+            padding-bottom: 5px;
+            font-size: 0.88rem;
+        }
+
+        .menu-item span:first-child {
+            font-weight: 600;
+            color: var(--leather-dark);
+        }
+
+        .menu-item span:last-child {
+            color: #9c7b40;
+            font-weight: bold;
+        }
+
+        /* Footer Halaman / Nomor Halaman */
+        .page-footer {
+            text-align: center;
+            font-style: italic;
+            font-size: 0.8rem;
+            color: #a39287;
+            border-top: 1px solid #eee;
+            padding-top: 8px;
             margin-top: 10px;
         }
 
-        .gallery-grid img {
-            width: 100%;
-            height: 110px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 1px solid #ddd;
-            transition: transform 0.3s;
-        }
-
-        .gallery-grid img:hover {
-            transform: scale(1.03);
-        }
-
-        /* Service Item List */
-        .service-item {
+        /* Navigasi / Tombol Buku */
+        .book-navigation {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 12px;
-            border-bottom: 1px dashed #e0d6cc;
-            padding-bottom: 8px;
-        }
-
-        .service-name {
-            font-weight: 600;
-            color: var(--primary);
-        }
-
-        .service-price {
-            color: #8c6d53;
-            font-weight: 600;
-        }
-
-        /* Navigation Buttons (Page Flips) */
-        .book-nav {
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 900px;
+            align-items: center;
             margin-top: 20px;
+            width: 100%;
         }
 
         .nav-btn {
-            background-color: var(--primary);
-            color: white;
+            background-color: var(--primary-gold);
+            color: var(--leather-dark);
             border: none;
-            padding: 10px 24px;
-            border-radius: 4px;
-            cursor: pointer;
+            padding: 12px 24px;
+            border-radius: 6px;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: background 0.3s, transform 0.2s;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
             gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
 
         .nav-btn:hover {
-            background-color: var(--accent);
-            color: var(--primary);
+            background-color: #d8b671;
             transform: translateY(-2px);
         }
 
         .nav-btn:disabled {
-            background-color: #dcd6d0;
-            color: #999;
+            background-color: #4a3832;
+            color: #7d6b63;
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
         }
 
-        /* Page Number Indicator */
         .page-indicator {
-            font-size: 0.85rem;
-            color: #7c6f66;
-            align-self: center;
+            color: var(--primary-gold);
             font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
         }
 
-        /* Responsive design for mobile screens */
+        /* Tombol Aksi WhatsApp */
+        .wa-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #25d366;
+            color: white;
+            padding: 12px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 15px;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+            transition: background 0.3s;
+        }
+
+        .wa-btn:hover {
+            background-color: #20ba5a;
+        }
+
+        /* Responsif HP */
         @media(max-width: 768px) {
-            .book-container {
+            .book {
                 flex-direction: column;
                 height: auto;
-                max-height: 80vh;
+                max-height: 75vh;
             }
-            .book-container::before {
+            .book::before {
                 display: none;
             }
             .page {
                 width: 100%;
-                height: 450px;
+                height: 480px;
+                padding: 20px;
             }
             .page-left {
                 border-right: none;
-                border-bottom: 1px solid #eee;
+                border-bottom: 1px solid #e6dcd0;
             }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>AGAM SPA</h1>
-        <p>Your Ultimate Sanctuary of Relaxation & Rejuvenation</p>
-    </header>
+    <div class="container">
+        <div class="book-cover-frame">
+            <div class="book">
+                
+                <!-- Lembar 1 (Halaman 1 & 2): Sambutan & Terapis -->
+                <div class="page page-left active" id="page-1">
+                    <div>
+                        <h1>AGAM SPA</h1>
+                        <p style="text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; color: #9c7b40; margin-bottom: 15px;">Sanctuary of Relaxation</p>
+                        <p>Selamat datang di <strong>Agam Spa</strong>. Tempat pelarian sempurna untuk menyegarkan kembali pikiran, meredakan ketegangan otot, dan memulihkan energi tubuh Anda dalam nuansa yang tenang dan hangat.</p>
+                        <div class="photo-frame" style="margin-top: 20px;">
+                            <img src="image_d9d069.jpg" alt="Tim Terapis Agam Spa">
+                        </div>
+                    </div>
+                    <div class="page-footer">- Lembar 1 / 3 -</div>
+                </div>
 
-    <!-- Main Book Interface -->
-    <div class="book-container">
-        
-        <!-- Spread 1: Halaman 1 & 2 (Beranda & Tentang Kami) -->
-        <div class="page page-left active" id="page-1">
-            <div>
-                <h2>Welcome to Agam Spa</h2>
-                <p>Rasakan pengalaman relaksasi terbaik di Agam Spa. Kami memadukan teknik pijat tradisional dan modern dengan suasana tempat yang dirancang khusus untuk menenangkan jiwa dan raga Anda.</p>
-                <p>Setiap terapis kami terlatih secara profesional untuk memberikan pelayanan ramah, hangat, dan memulihkan kesegaran tubuh Anda secara menyeluruh.</p>
-            </div>
-            <div style="text-align: center; font-style: italic; font-size: 0.85rem; color: #8c6d53;">
-                - Halaman 1 -
+                <div class="page page-right active" id="page-2">
+                    <div>
+                        <h2>Terapis Profesional</h2>
+                        <p>Ditemani oleh para terapis berpengalaman dan ramah yang siap memberikan pelayanan pijat tradisional dan perawatan terbaik khusus untuk kenyamanan Anda.</p>
+                        <div class="photo-frame" style="margin-top: 15px;">
+                            <img src="image_d9cf97.png" alt="Terapis Agam Spa Berbaris">
+                        </div>
+                    </div>
+                    <div class="page-footer">- Lembar 1 / 3 -</div>
+                </div>
+
+                <!-- Lembar 2 (Halaman 3 & 4): Ritual Kaki & Layanan Pijat -->
+                <div class="page page-left" id="page-3">
+                    <div>
+                        <h2>Foot Bath & Scrub Ritual</h2>
+                        <p>Awali sesi relaksasi Anda dengan pembersihan kaki menggunakan air hangat, aroma terapi pilihan, serta scrub lembut untuk melemaskan titik-titik lelah.</p>
+                        <div class="photo-frame" style="margin-top: 15px;">
+                            <img src="image_d97d7d.jpg" alt="Foot Bath Ritual">
+                        </div>
+                    </div>
+                    <div class="page-footer">- Lembar 2 / 3 -</div>
+                </div>
+
+                <div class="page page-right" id="page-4">
+                    <div>
+                        <h2>Menu Perawatan Utama</h2>
+                        <p>Pilih perawatan tubuh favorit Anda:</p>
+                        <div class="menu-list">
+                            <div class="menu-item"><span>Traditional Body Massage (90m)</span><span>Rp 160.000</span></div>
+                            <div class="menu-item"><span>Aromatherapy Hot Oil (90m)</span><span>Rp 190.000</span></div>
+                            <div class="menu-item"><span>Relaxing Foot Spa & Scrub (60m)</span><span>Rp 110.000</span></div>
+                            <div class="menu-item"><span>Agam Signature Package (120m)</span><span>Rp 320.000</span></div>
+                        </div>
+                        <div class="grid-2" style="margin-top: 15px;">
+                            <div class="photo-frame"><img src="image_d97d9a.png" alt="Oil Pouring"></div>
+                            <div class="photo-frame"><img src="image_d97d76.png" alt="Massage Action"></div>
+                        </div>
+                    </div>
+                    <div class="page-footer">- Lembar 2 / 3 -</div>
+                </div>
+
+                <!-- Lembar 3 (Halaman 5 & 6): Suasana Ruangan, Jamuan & Reservasi -->
+                <div class="page page-left" id="page-5">
+                    <div>
+                        <h2>Suasana & Jamuan</h2>
+                        <p>Nikmati suasana ruangan yang tenang berdekorasi estetik, lengkap dengan jamuan buah segar dan minuman hangat setelah selesai perawatan.</p>
+                        <div class="grid-2" style="margin-top: 10px;">
+                            <div class="photo-frame"><img src="image_d97d5b.png" alt="Ruangan Spa Buddha"></div>
+                            <div class="photo-frame"><img src="image_d97d40.jpg" alt="Welcome Fruit & Drink"></div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="photo-frame"><img src="image_d97d3b.png" alt="Bed Setup"></div>
+                            <div class="photo-frame"><img src="image_d97d1a.png" alt="Aroma Lemon"></div>
+                        </div>
+                    </div>
+                    <div class="page-footer">- Lembar 3 / 3 -</div>
+                </div>
+
+                <div class="page page-right" id="page-6">
+                    <div>
+                        <h2>Reservasi & Jadwal</h2>
+                        <p><strong>Jam Operasional:</strong><br>Setiap Hari: 10.00 - 21.00 WIB</p>
+                        <p>Amankan jadwal relaksasi Anda sekarang juga dengan menghubungi admin kami melalui tombol di bawah:</p>
+                        
+                        <div style="text-align: center; margin: 20px 0;">
+                            <div class="photo-frame" style="height: 140px; margin-bottom: 15px;">
+                                <img src="image_d97cdf.png" alt="Agam Spa Experience">
+                            </div>
+                            <a href="https://wa.me/6281234567890?text=Halo%20Agam%20Spa,%20saya%20ingin%20melakukan%20reservasi%20perawatan." target="_blank" class="wa-btn">
+                                <i class="fa-brands fa-whatsapp fa-lg"></i> Reservasi via WhatsApp
+                            </a>
+                        </div>
+                    </div>
+                    <div class="page-footer">- Lembar 3 / 3 -</div>
+                </div>
+
             </div>
         </div>
 
-        <div class="page page-right active" id="page-2">
-            <div>
-                <h2>Suasana & Fasilitas</h2>
-                <p>Nikmati suasana ruangan yang tenang dengan sentuhan estetika Buddha yang damai, aroma terapi alami, serta pelayanan istimewa.</p>
-                <div class="gallery-grid">
-                    <img src="image_d9d069.jpg" alt="Terapis Agam Spa">
-                    <img src="image_d9cf97.png" alt="Suasana Spa">
-                    <img src="image_d97d7d.jpg" alt="Foot Bath Ritual">
-                    <img src="image_d97d40.jpg" alt="Welcome Drink & Refreshment">
-                </div>
-            </div>
-            <div style="text-align: center; font-style: italic; font-size: 0.85rem; color: #8c6d53;">
-                - Halaman 2 -
-            </div>
+        <!-- Tombol Navigasi Lembar Buku -->
+        <div class="book-navigation">
+            <button class="nav-btn" id="prev-btn" onclick="turnSpread(-1)" disabled>
+                <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+            </button>
+            <span class="page-indicator" id="indicator">Lembar 1 dari 3</span>
+            <button class="nav-btn" id="next-btn" onclick="turnSpread(1)">
+                Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
-
-        <!-- Spread 2: Halaman 3 & 4 (Menu Perawatan & Galeri Tindakan) -->
-        <div class="page page-left" id="page-3">
-            <div>
-                <h2>Menu Perawatan</h2>
-                <p>Pilih berbagai jenis perawatan eksklusif kami:</p>
-                <div class="service-item">
-                    <span class="service-name">Traditional Body Massage</span>
-                    <span class="service-price">Rp 150.000</span>
-                </div>
-                <div class="service-item">
-                    <span class="service-name">Aromatherapy Hot Oil</span>
-                    <span class="service-price">Rp 180.000</span>
-                </div>
-                <div class="service-item">
-                    <span class="service-name">Relaxing Foot Bath & Scrub</span>
-                    <span class="service-price">Rp 100.000</span>
-                </div>
-                <div class="service-item">
-                    <span class="service-name">Full Agam Signature Package</span>
-                    <span class="service-price">Rp 300.000</span>
-                </div>
-            </div>
-            <div style="text-align: center; font-style: italic; font-size: 0.85rem; color: #8c6d53;">
-                - Halaman 3 -
-            </div>
-        </div>
-
-        <div class="page page-right" id="page-3-right">
-            <div>
-                <h2>Galeri Perawatan</h2>
-                <p>Dokumentasi langsung dari layanan profesional kami untuk kenyamanan Anda:</p>
-                <div class="gallery-grid">
-                    <img src="image_d97d9a.png" alt="Aromatherapy Oil Treatment">
-                    <img src="image_d97d76.png" alt="Massage Service">
-                    <img src="image_d97d3b.png" alt="Bed Setup">
-                    <img src="image_d97d1a.png" alt="Dry Lemon & Flowers">
-                </div>
-            </div>
-            <div style="text-align: center; font-style: italic; font-size: 0.85rem; color: #8c6d53;">
-                - Halaman 4 -
-            </div>
-        </div>
-
-        <!-- Spread 3: Halaman 5 & 6 (Kontak & Reservasi) -->
-        <div class="page page-left" id="page-5">
-            <div>
-                <h2>Jam Operasional</h2>
-                <p>Kami siap melayani kebutuhan relaksasi Anda setiap hari:</p>
-                <ul>
-                    <li><strong>Senin - Jumat:</strong> 10.00 - 21.00 WIB</li>
-                    <li><strong>Sabtu - Minggu:</strong> 09.00 - 22.00 WIB</li>
-                </ul>
-                <br>
-                <h2>Lokasi Kami</h2>
-                <p><i class="fa-solid fa-location-dot"></i> Jl. Kesehatan Raya No. 88, Kota Anda</p>
-            </div>
-            <div style="text-align: center; font-style: italic; font-size: 0.85rem; color: #8c6d53;">
-                - Halaman 5 -
-            </div>
-        </div>
-
-        <div class="page page-right" id="page-5-right">
-            <div>
-                <h2>Reservasi & Kontak</h2>
-                <p>Pesan jadwal perawatan Anda sekarang dan nikmati waktu relaksasi terbaik bersama Agam Spa:</p>
-                <div style="margin-top: 25px; display: flex; flex-direction: column; gap: 15px;">
-                    <a href="https://wa.me/6281234567890" target="_blank" style="background-color: #25d366; color: white; padding: 12px 20px; text-decoration: none; border-radius: 4px; text-align: center; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                        <i class="fa-brands fa-whatsapp fa-lg"></i> Chat WhatsApp Reservasi
-                    </a>
-                    <a href="tel:+6281234567890" style="background-color: var(--primary); color: white; padding: 12px 20px; text-decoration: none; border-radius: 4px; text-align: center; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px;">
-                        <i class="fa-solid fa-phone"></i> Hubungi Telepon Langsung
-                    </a>
-                </div>
-            </div>
-            <div style="text-align: center; font-style: italic; font-size: 0.85rem; color: #8c6d53;">
-                - Halaman 6 -
-            </div>
-        </div>
-
     </div>
 
-    <!-- Book Navigation Controls -->
-    <div class="book-nav">
-        <button class="nav-btn" id="prev-btn" onclick="changeSpread(-1)" disabled><i class="fa-solid fa-arrow-left"></i> Sebelumnya</button>
-        <span class="page-indicator" id="indicator">Lembar 1 dari 3</span>
-        <button class="nav-btn" id="next-btn" onclick="changeSpread(1)">Selanjutnya <i class="fa-solid fa-arrow-right"></i></button>
-    </div>
-
-    <!-- Script to handle Book Page Flipping -->
+    <!-- Skrip Interaktif Buku -->
     <script>
         let currentSpread = 0;
         const totalSpreads = 3;
@@ -397,36 +421,35 @@
 
         const rightPages = [
             document.getElementById('page-2'),
-            document.getElementById('page-3-right'),
-            document.getElementById('page-5-right')
+            document.getElementById('page-4'),
+            document.getElementById('page-6')
         ];
 
-        function updateBook() {
-            // Hide all pages
+        function updateBookView() {
+            // Sembunyikan semua halaman
             for (let i = 0; i < totalSpreads; i++) {
                 leftPages[i].classList.remove('active');
                 rightPages[i].classList.remove('active');
             }
 
-            // Show active spread
+            // Tampilkan lembar aktif
             leftPages[currentSpread].classList.add('active');
             rightPages[currentSpread].classList.add('active');
 
-            // Update buttons state
+            // Atur status tombol
             document.getElementById('prev-btn').disabled = currentSpread === 0;
             document.getElementById('next-btn').disabled = currentSpread === totalSpreads - 1;
 
-            // Update indicator
+            // Perbarui teks indikator
             document.getElementById('indicator').innerText = `Lembar ${currentSpread + 1} dari ${totalSpreads}`;
         }
 
-        function changeSpread(direction) {
+        function turnSpread(direction) {
             currentSpread += direction;
             if (currentSpread < 0) currentSpread = 0;
             if (currentSpread >= totalSpreads) currentSpread = totalSpreads - 1;
-            updateBook();
+            updateBookView();
         }
     </script>
-
 </body>
 </html>
